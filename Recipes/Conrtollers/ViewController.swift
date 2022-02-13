@@ -9,11 +9,20 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
+  var recipe = [RecipesResult]()
 
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    NetworkRequestManager.shared?.request(searchWord: "pasta", comletion: { response in
+      DispatchQueue.main.async {
+        self.recipe = response
+      }
+    })
+
+    print(recipe)
+
+  }
 
 }
 
