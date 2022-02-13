@@ -19,25 +19,32 @@ class NetworkRequestManager{
   private init?() {}
 
 //MARK:  - Создание запроса
-  func request(searchWord: String, comletion: @escaping ([RecipesResult]) -> Void) {
+  func request(searchWord: String, cumletion: @escaping ([RecipesResult]) -> Void) {
     let parameters = generateParams(keyWord: searchWord)
     guard let url = URL(string: url) else {return}
 
 
     AF.request(url, method: .get, parameters: parameters)
       .validate(statusCode: 200..<300)
-      .responseDecodable(of: RequsetResult.self){response in
-        var recip: [RecipesResult] = []
-        guard let value = response.value else {return}
-        if let array = value.results {
-          for i in array {
-            recip.append(i)
-          }
-comletion(recip)
+      .responseJSON() {response in
+          guard let value = response.value else { return }
+          guard let valueDict = value as? Dictionary<String,Any> else {return}
+          guard let arrayJSON = valueDict["results"] as? Array<[String:Any]> else {return}
+          var array: [RecipesResult] = []
+          for i in arrayJSON {
+              guard let id = i["id"] as? Int,
+                    let title = i["title"] as? String,
+                    let image = i["image"] as? String else {return}
+              let recipe = RecipesResult(id: id, title: title, image: image)
+              
+              array.append(recipe)
+           }
+//          print(array)
+          cumletion(array)
+          
         }
 
       }
-  }
 
   //MARK: - Параметры запроса
  private func generateParams(keyWord: String?)->[String:String]{

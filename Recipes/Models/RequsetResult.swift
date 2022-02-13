@@ -13,9 +13,9 @@ struct RequsetResult: Codable {
 
 
 struct RecipesResult: Codable {
-  let id: Int?
-  let title: String?
-  let image: String?
+  let id: Int
+  let title: String
+  let image: String
 
 
 

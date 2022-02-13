@@ -14,13 +14,15 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    NetworkRequestManager.shared?.request(searchWord: "pasta", comletion: { response in
-      DispatchQueue.main.async {
-        self.recipe = response
-      }
-    })
-
-    print(recipe)
+      NetworkRequestManager.shared?.request(searchWord: "pasta", cumletion: { recipes in
+          let array = recipes
+          
+          DispatchQueue.main.async {
+              self.recipe = array
+              print(self.recipe)
+          }
+      })
+    print("Hello world")
 
   }
 
