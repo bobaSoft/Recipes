@@ -13,8 +13,10 @@ class SearchViewController: UICollectionViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    collectionView.backgroundColor = UIColor(red: 251/255, green: 248/255, blue: 241/255, alpha: 100)
     configurateCollectionView()
     view.backgroundColor = .white
+
     NetworkRequestManager.shared?.request(searchWord: "Pizza", completion: { recipes in
       DispatchQueue.main.async  {
         self.recipes = recipes
@@ -56,6 +58,11 @@ extension SearchViewController{
     cell.imageDish.layer.cornerRadius = 20
 
     return cell
+  }
+
+  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let dish = recipes[indexPath.row]
+    print(dish.id!) // что можно рискнуть , вряд ли id не придёт
   }
 
 }
