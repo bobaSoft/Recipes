@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SearchViewController.swift
 //  Recipes
 //
 //  Created by Михаил Бобров on 13.02.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SearchViewController: UICollectionViewController {
 
   var recipes = [RecipesResult]()
 
