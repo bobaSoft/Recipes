@@ -9,19 +9,18 @@ import UIKit
 
 class ViewController: UIViewController {
 
-  var recipe = [RecipesResult]()
+  var recipes = [RecipesResult]()
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
-      NetworkRequestManager.shared?.request(searchWord: "pasta", cumletion: { recipes in
-          let array = recipes
-          
+      
+      view.backgroundColor = .white
+      NetworkRequestManager.shared?.request(searchWord: "Pizza", completion: { recipes in
           DispatchQueue.main.async {
-              self.recipe = array
-              print(self.recipe)
+              print(recipes)
           }
       })
+      
     print("Hello world")
 
   }
