@@ -125,8 +125,8 @@
 		F59C516727B9099D00971B5D /* Conrtollers */ = {
 			isa = PBXGroup;
 			children = (
-				F59C515627B9082E00971B5D /* SearchViewController.swift */,
 				F59C516A27B90B2F00971B5D /* MainTabBarController.swift */,
+				F59C515627B9082E00971B5D /* SearchViewController.swift */,
 				D25E185427BAADBD0081E154 /* FavouriteViewController .swift */,
 			);
 			path = Conrtollers;
