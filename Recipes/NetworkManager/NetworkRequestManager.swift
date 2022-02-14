@@ -18,7 +18,7 @@ class NetworkRequestManager{
     private init?() {}
     
     //MARK:  - Создание запроса
-    func request(searchWord: String, completion: @escaping ([RecipesResult]) -> Void) {
+    func request(searchWord: String?, completion: @escaping ([RecipesResult]) -> Void) {
         let parameters = generateParams(keyWord: searchWord)
         guard let url = URL(string: url) else {return}
         
@@ -37,7 +37,7 @@ class NetworkRequestManager{
     private func generateParams(keyWord: String?)->[String:String]{
         var parameters = [String:String]()
         parameters["query"] = keyWord
-        parameters["apiKey"] = "9a3400a2b3354a5785de5d3c09c7160b"
+      parameters["apiKey"] = "d0d03c927c034a62af87be5f7ab71334" // ключ может упасть 
         parameters["number"] = String(30)
         return parameters
     }
