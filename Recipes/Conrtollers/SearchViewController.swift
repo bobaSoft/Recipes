@@ -9,53 +9,52 @@ import UIKit
 
 class SearchViewController: UICollectionViewController {
 
-  var recipes = [RecipesResult]()
+  private var recipes = [RecipesResult]()
 
   override func viewDidLoad() {
     super.viewDidLoad()
     configurateCollectionView()
-      view.backgroundColor = .white
-      NetworkRequestManager.shared?.request(searchWord: "Pizza", completion: { recipes in
-          DispatchQueue.main.async  {
-            self.recipes = recipes
-            self.collectionView.reloadData()
-          }
-      })
-      
+    view.backgroundColor = .white
+    NetworkRequestManager.shared?.request(searchWord: "Pizza", completion: { recipes in
+      DispatchQueue.main.async  {
+        self.recipes = recipes
+        self.collectionView.reloadData()
+      }
+    })
+
     print("Hello world")
 
   }
 
-
+  ///  Регистрируется ячейка
   private func configurateCollectionView(){
     self.collectionView!.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: RecipeCollectionViewCell.reuseID)
-    collectionView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     collectionView.contentInsetAdjustmentBehavior = .automatic
-
-
   }
-
-
-
 }
 
 //MARK: - UICollectionViewDataSource
 extension SearchViewController{
 
+  /// Количество секций
   override func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
   }
 
+  /// Количество ячеек
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return recipes.count
   }
 
+  /// Заполнение ячейки
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecipeCollectionViewCell.reuseID, for: indexPath) as! RecipeCollectionViewCell
 
-//    cell.imageDish.image = UIImage(systemName: "capsule.fill")
     let dish = recipes[indexPath.item]
     cell.recipe = dish
+    cell.imageDish.layer.masksToBounds = true
+    cell.imageDish.layer.cornerRadius = 20
+
     return cell
   }
 
@@ -63,26 +62,17 @@ extension SearchViewController{
 
 extension SearchViewController: UICollectionViewDelegateFlowLayout
 {
+  /// Внешние параметры ячейки, в плане размера
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let width: CGFloat = view.bounds.width / 2 - 16
+    let height: CGFloat = 280 // было 300
+    return CGSize(width: width, height: height)
+  }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
-    {
-        let width: CGFloat = view.bounds.width / 2 - 16
-        let height: CGFloat = 300
-
-        return CGSize(width: width, height: height)
-    }
-
-
-
-    // не робит -------- //
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
-    {
-        return 1
-    } // ------------ //
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
-    {
-        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-    }
+  /// Настройка отступов от каждого края коллекции
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 3)
+  }
 }
 
 
