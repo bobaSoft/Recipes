@@ -37,7 +37,4 @@ struct RecipesResult: Codable {
         else { return nil}
         return jsonArray.compactMap{RecipesResult(json: $0)}
     }
-    
-    
-    
 }
