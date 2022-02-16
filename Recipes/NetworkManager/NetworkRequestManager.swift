@@ -6,6 +6,7 @@
 //
 
 import Alamofire
+import SwiftyJSON
 
 
 //MARK:  - NetworkRequestManager
@@ -37,11 +38,43 @@ class NetworkRequestManager{
     private func generateParams(keyWord: String?)->[String:String]{
         var parameters = [String:String]()
         parameters["query"] = keyWord
-      parameters["apiKey"] = "d0d03c927c034a62af87be5f7ab71334" // ключ может упасть 
+      parameters["apiKey"] = "9a3400a2b3354a5785de5d3c09c7160b" // ключ может упасть
         parameters["number"] = String(30)
         return parameters
     }
+
+  var araayElemnts = [String]()
+
+  func requestRecipes(id:Int, comletion: @escaping(([String])->Void)){
+    let url = URL(string: "https://api.spoonacular.com/recipes/\(id)/information?includeNutrition=true&apiKey=9a3400a2b3354a5785de5d3c09c7160b")
+      AF.request(url!, method: .get).validate().responseJSON { [self] response in
+        switch response.result {
+
+        case .success(let value):
+          let json = JSON(value)
+
+          let test = json["extendedIngredients"][0] // адрес фотки
+          print("JSON------------------ == \(test)") // вывод адреса фотки
+
+          let titles = json["extendedIngredients"].arrayValue.map{$0["name"].stringValue} // получение всех name
+          // add array
+          
+          araayElemnts = titles
+          comletion(araayElemnts)
+
+        case .failure(let error):
+          print("Ошибка == \(error)")
+        }
+        print(araayElemnts)      // тут приходят все title
+
+      }
+  }
+
+  func downloadJSON(id:Int){
+
+    }
+  }
     
     
-}
+
 

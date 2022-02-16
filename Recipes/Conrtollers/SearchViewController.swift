@@ -13,6 +13,8 @@ class SearchViewController: UICollectionViewController {
   private var timer: Timer?
 
   override func viewDidLoad() {
+
+    
     super.viewDidLoad()
     collectionView.backgroundColor = UIColor(red: 251/255, green: 248/255, blue: 241/255, alpha: 100)
     configurateCollectionView()
@@ -70,16 +72,30 @@ extension SearchViewController{
     return cell
   }
 
+  /// Нажатие на ячейку
   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let dish = recipes[indexPath.row]
+
+    let dishView = RecipeViewController()
+    dishView.dish = dish.title
+    dishView.scroolViewTopText = "\(dish.id!)"
+
     print(dish.id!) // можно рискнуть(!) , вряд ли id не придёт
+
+    NetworkRequestManager.shared?.requestRecipes(id: dish.id!, comletion: { response in
+      print("хуй = \(response)")
+      dishView.recipe = response
+    })
+
+    navigationController?.pushViewController(dishView, animated: true)
+
   }
 
 }
 
 extension SearchViewController: UICollectionViewDelegateFlowLayout
 {
-  /// Внешние параметры ячейки, в плане размера
+  /// Внешние параметры ячейки, в плане размера и все такое
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     let width: CGFloat = view.bounds.width / 2 - 16
     let height: CGFloat = 280 // было 300
@@ -94,7 +110,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout
 
 extension SearchViewController: UISearchBarDelegate
 {
-/// При смене текста
+/// При смене текста в searchBar
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
       NetworkRequestManager.shared?.request(searchWord: searchText, completion: { [ self]  data in
