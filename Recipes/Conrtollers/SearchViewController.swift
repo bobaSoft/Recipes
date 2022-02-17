@@ -83,7 +83,7 @@ extension SearchViewController{
     print(dish.id!) // можно рискнуть(!) , вряд ли id не придёт
 
     NetworkRequestManager.shared?.requestRecipes(id: dish.id!, comletion: { response in
-      print("хуй = \(response)")
+      print("Массивчик с элементами блюда = \(response)")
       dishView.recipe = response
     })
 
