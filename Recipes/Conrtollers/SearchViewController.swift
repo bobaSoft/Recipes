@@ -20,14 +20,13 @@ class SearchViewController: UICollectionViewController {
     configurateCollectionView()
     setUpSearchBar()
     view.backgroundColor = .white
+  }
 
-    NetworkRequestManager.shared?.request(searchWord: nil, completion: { recipes in // Поставил nil и данные все равно приходят. Также поставил ? В параметрах функции serchword
-      DispatchQueue.main.async  {
-        self.recipes = recipes
-        self.collectionView.reloadData()
-      }
-    })
-    print("Hello world")
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.tabBarController?.tabBar.isHidden = false
+
   }
 
   /// Настройка searchBar
@@ -75,17 +74,22 @@ extension SearchViewController{
   /// Нажатие на ячейку
   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let dish = recipes[indexPath.row]
+    let cell = collectionView.cellForItem(at: indexPath) as! RecipeCollectionViewCell
+    guard let id = cell.recipe.id else {return}
+
 
     let dishView = RecipeViewController()
+    dishView.fetchData(id: id)
+
     dishView.dish = dish.title
     dishView.scroolViewTopText = "\(dish.id!)"
 
     print(dish.id!) // можно рискнуть(!) , вряд ли id не придёт
 
-    NetworkRequestManager.shared?.requestRecipes(id: dish.id!, comletion: { response in
-      print("Массивчик с элементами блюда = \(response)")
-      dishView.recipe = response
-    })
+//    NetworkRequestManager.shared?.requestRecipes(id: dish.id!, comletion: { response in
+//      print("Массивчик с элементами блюда = \(response)")
+//      dishView.recipe = response
+//    })
 
     navigationController?.pushViewController(dishView, animated: true)
 

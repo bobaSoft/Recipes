@@ -16,8 +16,26 @@ class RecipeViewController: UIViewController  {
   var dish: String?
   var scroolViewTopText: String?
 
+
+  func fetchData(id: Int){
+    NetworkRequestManager.shared?.requestRecipes(id: id, comletion: { response in
+      DispatchQueue.main.async { [self] in
+        self.recipe = response
+        print("=============================++++\(recipe)")
+        label1.text = recipe[0]
+      }
+    })
+  }
+
+  let label1 = UILabel()
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.tabBarController?.tabBar.isHidden = true
+
+    DispatchQueue.main.async { [self] in
+      print("recipe ===== \(recipe)")
+    }
+
 
     view.backgroundColor = UIColor.white
 
@@ -34,7 +52,7 @@ class RecipeViewController: UIViewController  {
                make.left.right.equalTo(view) // => IMPORTANT: this makes the width of the contentview static (= size of the screen), while the contentview will stretch vertically
            }
 
-           let label1 = UILabel()
+
            contentView.addSubview(label1)
            label1.numberOfLines = 0
            label1.text = "sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds"
