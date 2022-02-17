@@ -13,15 +13,16 @@ import SwiftyJSON
 
 class NetworkRequestManager{
     
-    let url = "https://api.spoonacular.com/recipes/complexSearch"
+    let recipeURl = "https://api.spoonacular.com/recipes/complexSearch"
+    let recipeIdURL = "https://api.spoonacular.com/recipes/information"
     
     static let shared = NetworkRequestManager()
     private init?() {}
     
     //MARK:  - Создание запроса
     func request(searchWord: String?, completion: @escaping ([RecipesResult]) -> Void) {
-        let parameters = generateParams(keyWord: searchWord)
-        guard let url = URL(string: url) else {return}
+        let parameters = generateParamsForRecipes(keyWord: searchWord)
+        guard let url = URL(string: recipeURl) else {return}
         
         AF.request(url, method: .get, parameters: parameters).validate().responseJSON { response in
             switch response.result {
@@ -35,46 +36,38 @@ class NetworkRequestManager{
     }
     
     //MARK: - Параметры запроса
-    private func generateParams(keyWord: String?)->[String:String]{
+    private func generateParamsForRecipes(keyWord: String?)->[String:String]{
         var parameters = [String:String]()
         parameters["query"] = keyWord
-      parameters["apiKey"] = "9a3400a2b3354a5785de5d3c09c7160b" // ключ может упасть
+        parameters["apiKey"] = "9bbdc6dac46e42e185aff145354c3d0e" // ключ может упасть
         parameters["number"] = String(30)
         return parameters
     }
-
-  var araayElemnts = [String]()
-
-  func requestRecipes(id:Int, comletion: @escaping(([String])->Void)){
-    let url = URL(string: "https://api.spoonacular.com/recipes/\(id)/information?includeNutrition=true&apiKey=9a3400a2b3354a5785de5d3c09c7160b")
-      AF.request(url!, method: .get).validate().responseJSON { [self] response in
-        switch response.result {
-
-        case .success(let value):
-          let json = JSON(value)
-
-          let test = json["extendedIngredients"][0] // адрес фотки
-          print("JSON------------------ == \(test)") // вывод адреса фотки
-
-          let titles = json["extendedIngredients"].arrayValue.map{$0["name"].stringValue} // получение всех name
-          // add array
-          
-          araayElemnts = titles
-          comletion(araayElemnts)
-
-        case .failure(let error):
-          print("Ошибка == \(error)")
+    
+    
+    
+    let parameters = ["apiKey": "9bbdc6dac46e42e185aff145354c3d0e"]
+    
+    
+    
+    func requestRecipes(id:Int, comletion: @escaping(_ recipe: Recipe)->Void) {
+        let url = "https://api.spoonacular.com/recipes/\(id)/information"
+        AF.request(url, parameters: parameters).validate().responseDecodable(of: Recipe.self) { response in
+            switch response.result {
+            case .success(let value):
+                print(value)
+                comletion(value)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
-        print(araayElemnts)      // тут приходят все title
-
-      }
-  }
-
-  func downloadJSON(id:Int){
-
     }
-  }
-    
-    
+}
+
+
+
+
+
+
 
 

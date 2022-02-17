@@ -12,7 +12,7 @@ import SnapKit
 class RecipeViewController: UIViewController  {
 
 
-  var recipe = [String]()
+  var recipe: Recipe?
   var dish: String?
 
   private let scrollView  =   UIScrollView()
@@ -21,6 +21,21 @@ class RecipeViewController: UIViewController  {
   private let label1      =   UILabel()
 
 
+
+
+
+  func fetchData(id: Int){
+      NetworkRequestManager.shared?.requestRecipes(id: id, comletion: { recipe in
+          DispatchQueue.main.async {
+              self.recipe = recipe
+              self.label1.text = recipe.title
+              self.label2.text = recipe.analyzedInstructions[0].steps[0].step
+              
+              print("\(self.recipe!.readyInMinutes) заебись рецепт прям ахуеваю")
+          }
+      })
+}
+    
 
 
 
@@ -33,6 +48,7 @@ class RecipeViewController: UIViewController  {
       print("recipe ===== \(recipe)")
       
   }
+
 
     view.backgroundColor  = .blue
     title = dish
@@ -51,6 +67,9 @@ class RecipeViewController: UIViewController  {
     scrollView.snp.makeConstraints { (make) in
       make.edges.equalTo(view)
     }
+           contentView.addSubview(label1)
+           label1.numberOfLines = 0
+
 
     scrollView.addSubview(contentView)
     contentView.snp.makeConstraints { (make) in
@@ -58,6 +77,10 @@ class RecipeViewController: UIViewController  {
       make.left.right.equalTo(view)
     }
 
+
+           contentView.addSubview(label2)
+           label2.numberOfLines = 0
+           label2.text = "sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds sdlkfj lksjdf lksjd flksdjf slkd jfdslkjf kldsjf lksdj fklsdjf lkdsjf lkjsdlk fjsdlkf jsdlkj flksdjflksdjf lksdj flkjsdlk fjsldkjf lkdjflksjdlksjf lkdsj flkdsjf lkds"
 
     contentView.addSubview(label1)
     label1.numberOfLines = 0
@@ -80,13 +103,15 @@ class RecipeViewController: UIViewController  {
   }
 
 
-  func fetchData(id: Int){
-    NetworkRequestManager.shared?.requestRecipes(id: id, comletion: { response in
-      DispatchQueue.main.async { [self] in
-        self.recipe = response
-        label1.text = recipe[0]
-      }
-    })
-  }
+//  func fetchData(id: Int){
+//    NetworkRequestManager.shared?.requestRecipes(id: id, comletion: { response in
+//      DispatchQueue.main.async { [self] in
+//        self.recipe = response
+//        label1.text = recipe[0]
+//      }
+//    })
+//    view.backgroundColor  = .blue
+//    title = dish
+//  }
 
 }

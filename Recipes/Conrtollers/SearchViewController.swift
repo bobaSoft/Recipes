@@ -82,7 +82,6 @@ extension SearchViewController{
 
     let dishView = RecipeViewController()
     dishView.fetchData(id: id)
-
     dishView.dish = dish.title
     navigationController?.pushViewController(dishView, animated: true)
   }
