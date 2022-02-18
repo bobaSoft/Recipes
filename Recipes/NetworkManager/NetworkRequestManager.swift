@@ -55,7 +55,6 @@ class NetworkRequestManager{
         AF.request(url, parameters: parameters).validate().responseDecodable(of: Recipe.self) { response in
             switch response.result {
             case .success(let value):
-                print(value)
                 comletion(value)
             case .failure(let error):
                 print(error.localizedDescription)
