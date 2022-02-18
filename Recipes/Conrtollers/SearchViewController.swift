@@ -20,6 +20,7 @@ class SearchViewController: UICollectionViewController {
     configurateCollectionView()
     setUpSearchBar()
     view.backgroundColor = .white
+    title = ""
   }
 
   
