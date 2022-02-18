@@ -75,14 +75,12 @@ extension SearchViewController{
 
 /// Нажатие на ячейку
   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let dish = recipes[indexPath.row]
     let cell = collectionView.cellForItem(at: indexPath) as! RecipeCollectionViewCell
     guard let id = cell.recipe.id else {return}
 
 
     let dishView = RecipeViewController()
     dishView.fetchData(id: id)
-    dishView.dish = dish.title
     navigationController?.pushViewController(dishView, animated: true)
   }
 }

@@ -21,6 +21,7 @@
 		F59C515C27B9083400971B5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F59C515B27B9083400971B5D /* Assets.xcassets */; };
 		F59C515F27B9083400971B5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F59C515D27B9083400971B5D /* LaunchScreen.storyboard */; };
 		F59C516B27B90B2F00971B5D /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59C516A27B90B2F00971B5D /* MainTabBarController.swift */; };
+		F5EA56CB27BFD3B300BA4508 /* RecipeDetailUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EA56CA27BFD3B300BA4508 /* RecipeDetailUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		F59C515E27B9083400971B5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F59C516027B9083400971B5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F59C516A27B90B2F00971B5D /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		F5EA56CA27BFD3B300BA4508 /* RecipeDetailUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailUIView.swift; sourceTree = "<group>"; };
 		FC6D54829260B4BA47888C39 /* Pods-Recipes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.debug.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +158,7 @@
 			children = (
 				F59C515D27B9083400971B5D /* LaunchScreen.storyboard */,
 				D25E185827BAB1EB0081E154 /* Cells */,
+				F5EA56CA27BFD3B300BA4508 /* RecipeDetailUIView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				F510F76F27BEA3AE0029B253 /* RecipesResult.swift in Sources */,
 				F59C515527B9082E00971B5D /* SceneDelegate.swift in Sources */,
 				F510F77127BEA4010029B253 /* Recipe.swift in Sources */,
+				F5EA56CB27BFD3B300BA4508 /* RecipeDetailUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
