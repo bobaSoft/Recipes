@@ -11,7 +11,7 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
       let searchVC      =   SearchViewController(collectionViewLayout: UICollectionViewFlowLayout())
       let favouriteVC   =   FavouriteViewController()
         

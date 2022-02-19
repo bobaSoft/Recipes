@@ -21,18 +21,19 @@ class RecipeCollectionViewCell: UICollectionViewCell{
     }
   }
 
-   lazy var imageDish: UIImageView = {
+  lazy var imageDish: UIImageView = {
     let dish = UIImageView()
-//    dish.image = UIImage(named: "pizza")
-    dish.contentMode = .scaleAspectFit
-    dish.backgroundColor = .green
+    //     dish.contentMode = .scaleAspectFill // если так, то картинка лучше, но одна только на горизонтали
+    //    dish.contentMode = .scaleAspectFit // так тоже норм, фотки две по горизонтали, но они маленькие
+    dish.contentMode = .scaleToFill // так +- лучше всего, но фото чуть растянуто
+    dish.layer.masksToBounds = true
     return dish
   }()
 
-   lazy var nameDish: UILabel = {
+  lazy var nameDish: UILabel = {
     let name = UILabel()
     name.text = "Pizza"
-    name.numberOfLines = 0
+    name.numberOfLines = 2
     name.textAlignment = .center
     return name
   }()
@@ -53,13 +54,11 @@ class RecipeCollectionViewCell: UICollectionViewCell{
     fatalError("init(coder:) has not been implemented")
   }
 
-
   private func setupImageView(){
     addSubview(imageDish)
 
     imageDish.snp.makeConstraints { make in
       make.centerX.equalTo(self.snp.centerX)
-//      make.height.equalTo(snp.height).multipliedBy(3 / 4)
       make.height.equalTo(225)
       make.width.equalTo(self.snp.width)
     }
@@ -69,12 +68,9 @@ class RecipeCollectionViewCell: UICollectionViewCell{
     addSubview(nameDish)
     nameDish.snp.makeConstraints { make in
       make.centerX.equalTo(self.snp.centerX)
-//      make.leading.trailing.equalTo(contentView.snp.trailing.)
       make.leading.equalTo(self.snp.leading).inset(10)
       make.trailing.equalTo(self.snp.trailing).inset(10)
       make.top.equalTo(imageDish.snp.bottom).inset(-5)
     }
   }
-
-
 }
