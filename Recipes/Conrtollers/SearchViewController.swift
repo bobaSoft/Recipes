@@ -14,16 +14,13 @@ class SearchViewController: UICollectionViewController {
 
   override func viewDidLoad() {
 
-    
     super.viewDidLoad()
     collectionView.backgroundColor = UIColor(red: 251/255, green: 248/255, blue: 241/255, alpha: 100)
     configurateCollectionView()
     setUpSearchBar()
     view.backgroundColor = .white
-    title = ""
   }
 
-  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.tabBarController?.tabBar.isHidden = false
@@ -102,7 +99,6 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout
     return UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 3)
   }
 }
-
 
 extension SearchViewController: UISearchBarDelegate
 {
