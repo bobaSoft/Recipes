@@ -51,7 +51,6 @@ class RecipeDetailUIView: UIView {
 
   private func setupView(){
     self.backgroundColor = .white
-
     self.addSubview(self.mainScrollView)
     self.mainScrollView.addSubview(self.sampleLabel)
     self.mainScrollView.addSubview(self.recipeImageView)
@@ -62,13 +61,13 @@ class RecipeDetailUIView: UIView {
     }
 
     self.recipeImageView.snp.makeConstraints { make in
-      make.top.equalTo(mainScrollView.snp_topMargin).offset(5)
+      make.top.equalTo(mainScrollView.snp.bottom).offset(5)
       make.centerX.equalTo(self.mainScrollView)
     }
 
     self.sampleLabel.snp.makeConstraints { make in
       make.centerX.equalTo(self.mainScrollView)
-      make.centerY.equalTo(recipeImageView.snp_bottomMargin).offset(50)
+      make.top.equalTo(recipeImageView.snp.bottom).offset(50)
     }
   }
 }
