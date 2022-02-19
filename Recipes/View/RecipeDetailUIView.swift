@@ -21,14 +21,7 @@ class RecipeDetailUIView: UIView {
         return scrollView
     }()
     
-    let sampleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Test"
-        label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-        label.textAlignment = .center
-        return label
-    }()
-    var recipeImageView: UIImageView = {
+    lazy var recipeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .red
@@ -36,11 +29,29 @@ class RecipeDetailUIView: UIView {
         return imageView
     }()
     
+    lazy var recipeNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Test"
+        label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    var tableView: UITableView = {
+        let tableView = UITableView()
+        return tableView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+        tableView.frame = mainScrollView.bounds
         self.backgroundColor = .white
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(IngredientsTableViewCell.self, forCellReuseIdentifier: "section1")
+        tableView.register(PreparationStepsTableViewCell.self, forCellReuseIdentifier: "section2")
+
     }
     
     required init?(coder: NSCoder) {
@@ -53,25 +64,49 @@ class RecipeDetailUIView: UIView {
     
     private func setupView(){
         self.backgroundColor = .white
-        
         self.addSubview(self.mainScrollView)
-        self.mainScrollView.addSubview(self.sampleLabel)
+        self.mainScrollView.addSubview(self.recipeNameLabel)
         self.mainScrollView.addSubview(self.recipeImageView)
-        
+        self.mainScrollView.addSubview(tableView)
         
         self.mainScrollView.snp.makeConstraints { (make) in
             make.top.left.right.bottom.equalTo(self.safeAreaLayoutGuide)
         }
         
         self.recipeImageView.snp.makeConstraints { make in
-            make.top.equalTo(mainScrollView.snp_topMargin).offset(5)
+            make.top.equalTo(mainScrollView.snp.topMargin).offset(5)
             make.centerX.equalTo(self.mainScrollView)
             
         }
         
-        self.sampleLabel.snp.makeConstraints { make in
+        self.recipeNameLabel.snp.makeConstraints { make in
             make.centerX.equalTo(self.mainScrollView)
-            make.centerY.equalTo(recipeImageView.snp_bottomMargin).offset(50)
+            make.top.equalTo(recipeImageView.snp.bottom).offset(10)
+        }
+        
+        self.tableView.snp.makeConstraints { make in
+            make.top.equalTo(recipeNameLabel.snp.bottom).offset(10)
+            make.centerX.equalTo(self.mainScrollView)
+            make.leading.trailing.equalTo(self.mainScrollView).inset(16)
         }
     }
+}
+
+extension RecipeDetailUIView: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let firstCell = tableView.dequeueReusableCell(withIdentifier: "section1", for: indexPath) as! IngredientsTableViewCell
+        firstCell.backgroundColor = .red
+        return firstCell
+}
 }

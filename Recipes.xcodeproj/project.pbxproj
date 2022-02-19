@@ -21,6 +21,8 @@
 		F59C515C27B9083400971B5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F59C515B27B9083400971B5D /* Assets.xcassets */; };
 		F59C515F27B9083400971B5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F59C515D27B9083400971B5D /* LaunchScreen.storyboard */; };
 		F59C516B27B90B2F00971B5D /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59C516A27B90B2F00971B5D /* MainTabBarController.swift */; };
+		F5CCC0C027C1346C00504B9A /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CCC0BF27C1346C00504B9A /* IngredientsTableViewCell.swift */; };
+		F5CCC0C227C1348600504B9A /* PreparationStepsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CCC0C127C1348600504B9A /* PreparationStepsTableViewCell.swift */; };
 		F5EA56CB27BFD3B300BA4508 /* RecipeDetailUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EA56CA27BFD3B300BA4508 /* RecipeDetailUIView.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +44,8 @@
 		F59C515E27B9083400971B5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F59C516027B9083400971B5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F59C516A27B90B2F00971B5D /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		F5CCC0BF27C1346C00504B9A /* IngredientsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewCell.swift; sourceTree = "<group>"; };
+		F5CCC0C127C1348600504B9A /* PreparationStepsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreparationStepsTableViewCell.swift; sourceTree = "<group>"; };
 		F5EA56CA27BFD3B300BA4508 /* RecipeDetailUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailUIView.swift; sourceTree = "<group>"; };
 		FC6D54829260B4BA47888C39 /* Pods-Recipes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.debug.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,6 +83,8 @@
 			isa = PBXGroup;
 			children = (
 				D25E185927BAB2280081E154 /* RecipeCollectionViewCell  .swift */,
+				F5CCC0BF27C1346C00504B9A /* IngredientsTableViewCell.swift */,
+				F5CCC0C127C1348600504B9A /* PreparationStepsTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -284,9 +290,11 @@
 				D25E185A27BAB2280081E154 /* RecipeCollectionViewCell  .swift in Sources */,
 				D25E185527BAADBD0081E154 /* FavouriteViewController .swift in Sources */,
 				D25E186427BC53E40081E154 /* RecipeViewController .swift in Sources */,
+				F5CCC0C027C1346C00504B9A /* IngredientsTableViewCell.swift in Sources */,
 				F59C516B27B90B2F00971B5D /* MainTabBarController.swift in Sources */,
 				F510F76F27BEA3AE0029B253 /* RecipesResult.swift in Sources */,
 				F59C515527B9082E00971B5D /* SceneDelegate.swift in Sources */,
+				F5CCC0C227C1348600504B9A /* PreparationStepsTableViewCell.swift in Sources */,
 				F510F77127BEA4010029B253 /* Recipe.swift in Sources */,
 				F5EA56CB27BFD3B300BA4508 /* RecipeDetailUIView.swift in Sources */,
 			);

@@ -39,7 +39,7 @@ class RecipeViewController: UIViewController  {
         NetworkRequestManager.shared?.requestRecipes(id: id, comletion: { recipe in
             DispatchQueue.main.async {
                 self.recipe = recipe
-                print(self.recipe)
+                print(self.recipe!.servings)
             }
         })
     }
@@ -51,5 +51,8 @@ class RecipeViewController: UIViewController  {
     
     private func setUpView() {
         self.tabBarController?.tabBar.isHidden = true
+        
     }
 }
+
+
