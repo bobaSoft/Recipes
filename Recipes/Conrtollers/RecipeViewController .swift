@@ -29,6 +29,7 @@ class RecipeViewController: UIViewController  {
         super.viewWillLayoutSubviews()
         recipeView.recipeImageView.snp.makeConstraints { make in
             make.height.equalTo(self.view.frame.height / 3)
+            make.width.equalTo(self.view.frame.width * 0.7)
         }
     }
     

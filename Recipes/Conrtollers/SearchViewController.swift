@@ -83,8 +83,7 @@ extension SearchViewController{
   }
 }
 
-extension SearchViewController: UICollectionViewDelegateFlowLayout
-{
+extension SearchViewController: UICollectionViewDelegateFlowLayout {
 
 /// Внешние параметры ячейки, в плане размера и все такое
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
