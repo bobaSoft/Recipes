@@ -14,6 +14,9 @@ class RecipeDetailUIView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupView()
+    tableVIew.frame = self.bounds
+    tableVIew.delegate = self
+    tableVIew.dataSource = self
     self.backgroundColor = .white
   }
 
@@ -46,10 +49,28 @@ class RecipeDetailUIView: UIView {
     return imageView
   }()
 
+  let view2: UIView = {
+         let view = UIView()
+         view.backgroundColor = .green
+         return view
+     }()
+
+  let tableVIew: UITableView =  {
+          let table = UITableView()
+          table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+  //        table.translatesAutoresizingMaskIntoConstraints = false
+          return table
+      }()
+
 
   //MARK: - Настройка view элементов
 
   private func setupView(){
+    self.mainScrollView.bounces = false
+    self.tableVIew.bounces = false
+    mainScrollView.addSubview(view2)
+    view2.addSubview(tableVIew)
+    
     self.backgroundColor = .white
     self.addSubview(self.mainScrollView)
     self.mainScrollView.addSubview(self.sampleLabel)
@@ -69,5 +90,36 @@ class RecipeDetailUIView: UIView {
       make.centerX.equalTo(self.mainScrollView)
       make.top.equalTo(recipeImageView.snp.bottom).offset(50)
     }
+
+    view2.snp.makeConstraints { make in
+                make.top.equalTo(sampleLabel.snp.bottom).offset(50)
+                make.centerX.equalToSuperview()
+                make.height.equalTo(500)
+                make.width.equalToSuperview()
+            }
+
+            tableVIew.snp.makeConstraints { make in
+                make.top.bottom.leading.trailing.equalToSuperview()
+            }
+
   }
+}
+
+
+extension RecipeDetailUIView: UITableViewDelegate, UITableViewDataSource {
+
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        50
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = "dsggsdfhsdfh"
+        return cell
+    }
 }
