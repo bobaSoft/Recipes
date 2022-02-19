@@ -64,7 +64,6 @@ class RecipeDetailUIView: UIView {
     self.recipeImageView.snp.makeConstraints { make in
       make.top.equalTo(mainScrollView.snp_topMargin).offset(5)
       make.centerX.equalTo(self.mainScrollView)
-      make.height.width.equalTo(250)
     }
 
     self.sampleLabel.snp.makeConstraints { make in
