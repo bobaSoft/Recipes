@@ -110,16 +110,48 @@ extension RecipeDetailUIView: UITableViewDelegate, UITableViewDataSource {
 
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        1
+        2
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        50
-    }
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      if section == 0 {
+          return 3
+      }else {
+          return 15
+      }
+  }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = "dsggsdfhsdfh"
         return cell
     }
+
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+      if section == 0 {
+          return 25
+      }else {
+          return 100
+      }
+  }
+
+  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+      if section == 0 {
+          return 100
+      } else {
+          return 50
+      }
+  }
+
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+      if section == 0 {
+      return "Я ебал ваши скролл вью"
+      }else {
+          return "dfl;ksdfb"
+      }
+  }
+
+
+
+
 }
