@@ -8,12 +8,22 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    private let customView = CustomView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .red
+        
     }
 
+    override func viewWillLayoutSubviews() {
+        
+    }
 
+    
+    override func loadView() {
+        self.view = customView
+    }
 }
 
