@@ -39,14 +39,14 @@ class NetworkRequestManager{
     private func generateParamsForRecipes(keyWord: String?)->[String:String]{
         var parameters = [String:String]()
         parameters["query"] = keyWord
-        parameters["apiKey"] = "7002e98af1174da7a201c458e407023d" // ключ может упасть
+        parameters["apiKey"] = "5b20ab8b632040dbbd8d3445b5b8e0c2" // ключ может упасть
         parameters["number"] = String(30)
         return parameters
     }
     
     
     
-    let parameters = ["apiKey": "7002e98af1174da7a201c458e407023d"]
+    let parameters = ["apiKey": "5b20ab8b632040dbbd8d3445b5b8e0c2"]
     
     
     

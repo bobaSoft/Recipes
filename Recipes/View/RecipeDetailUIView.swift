@@ -10,6 +10,14 @@ import UIKit
 /// Все элементы ui для детального экрана
 class RecipeDetailUIView: UIView {
 
+  var valuheOne = 0
+  var valueTwo = 0
+
+  var resipeText = ""
+
+
+  var recipe: Recipe?
+
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -50,17 +58,16 @@ class RecipeDetailUIView: UIView {
   }()
 
   let view2: UIView = {
-         let view = UIView()
-         view.backgroundColor = .green
-         return view
-     }()
+    let view = UIView()
+    view.backgroundColor = .green
+    return view
+  }()
 
   let tableVIew: UITableView =  {
-          let table = UITableView()
-          table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-  //        table.translatesAutoresizingMaskIntoConstraints = false
-          return table
-      }()
+    let table = UITableView()
+    table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    return table
+  }()
 
 
   //MARK: - Настройка view элементов
@@ -92,15 +99,15 @@ class RecipeDetailUIView: UIView {
     }
 
     view2.snp.makeConstraints { make in
-                make.top.equalTo(sampleLabel.snp.bottom).offset(50)
-                make.centerX.equalToSuperview()
-                make.height.equalTo(500)
-                make.width.equalToSuperview()
-            }
+      make.top.equalTo(sampleLabel.snp.bottom).offset(50)
+      make.centerX.equalToSuperview()
+      make.height.equalTo(500)
+      make.width.equalToSuperview()
+    }
 
-            tableVIew.snp.makeConstraints { make in
-                make.top.bottom.leading.trailing.equalToSuperview()
-            }
+    tableVIew.snp.makeConstraints { make in
+      make.top.bottom.leading.trailing.equalToSuperview()
+    }
 
   }
 }
@@ -109,46 +116,52 @@ class RecipeDetailUIView: UIView {
 extension RecipeDetailUIView: UITableViewDelegate, UITableViewDataSource {
 
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        2
-    }
-
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      if section == 0 {
-          return 3
-      }else {
-          return 15
-      }
+  func numberOfSections(in tableView: UITableView) -> Int {
+    2
   }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "dsggsdfhsdfh"
-        return cell
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if section == 0 {
+      return valuheOne
+    }else {
+      return valueTwo
+
     }
+  }
+
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+    if indexPath.section == 0 {
+      //      cell.textLabel?.text = recipe?.analyzedInstructions[indexPath.row].steps[indexPath.row].ingredients[indexPath.row].name
+      cell.textLabel?.text = resipeText //только так пока смог
+    }else{
+      cell.textLabel?.text = "ПШНХ ПШНХ ПШНХ"
+    }
+    return cell
+  }
 
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-      if section == 0 {
-          return 25
-      }else {
-          return 100
-      }
+    if section == 0 {
+      return 25
+    }else {
+      return 100
+    }
   }
 
   func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-      if section == 0 {
-          return 100
-      } else {
-          return 50
-      }
+    if section == 0 {
+      return 100
+    } else {
+      return 50
+    }
   }
 
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-      if section == 0 {
+    if section == 0 {
       return "Я ебал ваши скролл вью"
-      }else {
-          return "dfl;ksdfb"
-      }
+    }else {
+      return "dfl;ksdfb"
+    }
   }
 
 
