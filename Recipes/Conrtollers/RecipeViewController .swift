@@ -12,7 +12,14 @@ class RecipeViewController: UIViewController  {
     
     // MARK: - Private properties
     
-    private var recipe: Recipe?
+    private var recipe: Recipe? {
+        didSet {
+            guard let recipe = recipe, let url = URL(string:recipe.image) else { return }
+
+            self.recipeView.sampleLabel.text = recipe.title // done
+            self.recipeView.recipeImageView.sd_setImage(with: url) // done
+        }
+    }
     
     private lazy var recipeView = RecipeDetailUIView()
     
@@ -69,7 +76,12 @@ class RecipeViewController: UIViewController  {
     // MARK: - Methods for UI configuration.
     
     private func setUpView() {
+        guard let recipe = recipe else {
+            return
+        }
+
         self.tabBarController?.tabBar.isHidden = true
+
     }
 }
 
@@ -95,13 +107,15 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
 
       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
           guard let recipe = recipe else { return UITableViewCell()}
-          let ingredients = recipe.extendedIngredients[indexPath.row]
-          let stepsOfPreparations = recipe.analyzedInstructions[0].steps[indexPath.section]
+          
+          
           
           let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
           if indexPath.section == 0 {
+              let ingredients = recipe.extendedIngredients[indexPath.row]
               cell.textLabel?.text = ingredients.originalName
           }else{
+              let stepsOfPreparations = recipe.analyzedInstructions[0].steps[indexPath.row]
               cell.textLabel?.text = stepsOfPreparations.step
           }
           return cell
@@ -138,6 +152,10 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
       let header = view as! UITableViewHeaderFooterView
       header.textLabel?.font = UIFont.boldSystemFont(ofSize: 30)
 
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 
   }
