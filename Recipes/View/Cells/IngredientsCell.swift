@@ -8,55 +8,56 @@
 import Foundation
 import UIKit
 
+//MARK: - Кастомная ячейка для таблицы
 class IngredientsCell: UITableViewCell{
 
-   var containLab:UILabel
+  private var containLab:UILabel // label для вывода шагов 
 
+  /// awakeFromNib
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    // Initialization code
+  }
 
-   fileprivate var imgV_R:UIImageView?
+  /// init
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    containLab = UILabel()
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
+    self.initUI()
+  }
 
-   override func awakeFromNib() {
-       super.awakeFromNib()
-       // Initialization code
-   }
+  /// -------------
+  override func setSelected(_ selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
+    // Configure the view for the selected state
+  }
 
-   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-       containLab = UILabel()
-       super.init(style: style, reuseIdentifier: reuseIdentifier)
-       self.initUI()
-   }
+  /// Присвоение констрэинтов и добавление на экран
+  fileprivate func initUI(){
+    self.selectionStyle = UITableViewCell.SelectionStyle.none
+    self.contentView.backgroundColor = UIColor.clear
 
-   override func setSelected(_ selected: Bool, animated: Bool) {
-       super.setSelected(selected, animated: animated)
-       // Configure the view for the selected state
-   }
+    containLab.numberOfLines = 0
+    containLab.backgroundColor = UIColor.clear
+    containLab.font = .systemFont(ofSize: 18, weight: .medium)
+    containLab.textColor = .black
 
-   fileprivate func initUI(){
+    self.contentView.addSubview(containLab)
+    containLab.snp.makeConstraints({ (make) in
+      make.center.equalToSuperview()
+      make.left.trailing.equalTo(5)
+      make.top.equalToSuperview()
+      make.bottom.equalToSuperview()
+    })
 
-       self.selectionStyle = UITableViewCell.SelectionStyle.none
-//       self.backgroundColor = UIColor.brown
-       self.contentView.backgroundColor = UIColor.clear
+  }
+  /// Конфигурация ячейки (Заполнение )
+  func ConfigCellWithContain(_ contain: Step){
+    containLab.text = contain.step
+  }
 
-
-       containLab.numberOfLines = 0
-       containLab.backgroundColor = UIColor.clear
-     containLab.font = .systemFont(ofSize: 18, weight: .medium)
-       containLab.textColor = .black
-
-       self.contentView.addSubview(containLab)
-       containLab.snp.makeConstraints({ (make) in
-         make.center.equalToSuperview()
-         make.left.trailing.equalTo(5)
-         make.top.equalToSuperview()
-         make.bottom.equalToSuperview()
-       })
-
-   }
-    func ConfigCellWithContain(_ contain: Step){
-      containLab.text = contain.step
-   }
-
-   required init?(coder aDecoder: NSCoder) {
-       fatalError("init(coder:) has not been implemented")
-   }
+  /// required init
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 }
