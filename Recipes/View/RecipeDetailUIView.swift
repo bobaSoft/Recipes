@@ -10,21 +10,10 @@ import UIKit
 /// Все элементы ui для детального экрана
 class RecipeDetailUIView: UIView {
     
-    var valuheOne = 0
-    var valueTwo = 0
-    
-    var resipeText = ""
-    
-    
-    var recipe: Recipe?
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
         tableVIew.frame = self.bounds
-        tableVIew.delegate = self
-        tableVIew.dataSource = self
         self.backgroundColor = .white
     }
     
@@ -112,67 +101,4 @@ class RecipeDetailUIView: UIView {
         }
         
     }
-}
-
-
-extension RecipeDetailUIView: UITableViewDelegate, UITableViewDataSource {
-    
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return valuheOne
-        }else {
-            return valueTwo
-            
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        if indexPath.section == 0 {
-            //      cell.textLabel?.text = recipe?.analyzedInstructions[indexPath.row].steps[indexPath.row].ingredients[indexPath.row].name
-            cell.textLabel?.text = resipeText //только так пока смог
-        }else{
-            cell.textLabel?.text = "ПШНХ ПШНХ ПШНХ"
-        }
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 50
-        }else {
-            return 100
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 20
-        } else {
-            return 20
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "ingredients"
-        }else {
-            return "steps"
-        }
-    }
-
-
-
-
-  func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-    let header = view as! UITableViewHeaderFooterView
-    header.textLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-  
-  }
-
 }
