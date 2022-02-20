@@ -15,9 +15,10 @@ class RecipeViewController: UIViewController  {
     private var recipe: Recipe? {
         didSet {
             guard let recipe = recipe, let url = URL(string:recipe.image) else { return }
-
-            self.recipeView.sampleLabel.text = recipe.title // done
-            self.recipeView.recipeImageView.sd_setImage(with: url) // done
+            self.recipeView.recipeNameLabel.text = recipe.title
+            DispatchQueue.main.async {
+                self.recipeView.recipeImageView.sd_setImage(with: url)
+            }
         }
     }
     
@@ -27,11 +28,10 @@ class RecipeViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+
         recipeView.tableVIew.delegate = self
         recipeView.tableVIew.dataSource = self
-      recipeView.tableVIew.register(IngredientsCell().classForCoder, forCellReuseIdentifier: firstCellIDF)
-
-
+        recipeView.tableVIew.register(IngredientsCell().classForCoder, forCellReuseIdentifier: firstCellIDF)
     }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -41,14 +41,13 @@ class RecipeViewController: UIViewController  {
     
     override func loadView() {
         self.view = recipeView
-//      recipeView.sampleLabel.text = "ПЕНА ИДИКА ТЫ НАХУЙ"
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         recipeView.recipeImageView.snp.makeConstraints { make in
             make.height.equalTo(self.view.frame.height / 3)
-          make.width.equalTo(self.view.frame.width * 0.7)
+            make.width.equalTo(self.view.frame.width * 0.7)
         }
     }
     
@@ -58,24 +57,21 @@ class RecipeViewController: UIViewController  {
         NetworkRequestManager.shared?.requestRecipes(id: id, comletion: { recipe in
             DispatchQueue.main.async {
                 self.recipe = recipe
-                print(self.recipe)
-                self.recipeView.tableVIew.reloadData()
+                self.recipeView.customTableView.reloadData()
             }
         })
     }
-
+    
     // MARK: - Methods for UI configuration.
     
     private func setUpView() {
-        guard let recipe = recipe else {
-            return
-        }
         self.tabBarController?.tabBar.isHidden = true
     }
 }
 
 
 extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
+
 
 
       func numberOfSections(in tableView: UITableView) -> Int {
@@ -149,6 +145,7 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
     
 
   }
+
 
 
 
