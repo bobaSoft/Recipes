@@ -29,14 +29,14 @@ class RecipeViewController: UIViewController  {
         super.viewDidLoad()
         setUpView()
 
-        recipeView.tableVIew.delegate = self
-        recipeView.tableVIew.dataSource = self
-        recipeView.tableVIew.register(IngredientsCell().classForCoder, forCellReuseIdentifier: firstCellIDF)
+        recipeView.customTableView.delegate = self
+        recipeView.customTableView.dataSource = self
+        recipeView.customTableView.register(IngredientsCell().classForCoder, forCellReuseIdentifier: firstCellIDF)
     }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    recipeView.tableVIew.reloadData()
+    recipeView.customTableView.reloadData()
   }
     
     override func loadView() {
@@ -142,9 +142,7 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
       header.textLabel?.font = UIFont.boldSystemFont(ofSize: 30)
 
     }
-    
-
-  }
+}
 
 
 
