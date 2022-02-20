@@ -11,7 +11,7 @@ import SDWebImage
 class RecipeViewController: UIViewController  {
     
     // MARK: - Private properties
-    
+  let firstCellIDF = "RightChatCellIDF"
     private var recipe: Recipe? {
         didSet {
             guard let recipe = recipe, let url = URL(string:recipe.image) else { return }
@@ -29,8 +29,15 @@ class RecipeViewController: UIViewController  {
         setUpView()
         recipeView.tableVIew.delegate = self
         recipeView.tableVIew.dataSource = self
-      
+      recipeView.tableVIew.register(IngredientsCell().classForCoder, forCellReuseIdentifier: firstCellIDF)
+
+
     }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    recipeView.tableVIew.reloadData()
+  }
     
     override func loadView() {
         self.view = recipeView
@@ -53,22 +60,6 @@ class RecipeViewController: UIViewController  {
                 self.recipe = recipe
                 print(self.recipe)
                 self.recipeView.tableVIew.reloadData()
-//              var viewElemnts = RecipeDetailUIView()
-////              print("Я ЕбЛАН ААААААААААЫФФФФФФФФФ")
-//              self.recipeView.sampleLabel.text = String(recipe.title) // done
-//              self.recipeView.recipeImageView.sd_setImage(with: URL(string: "\(recipe.image)")) // done
-//              self.test = (recipe.analyzedInstructions[0].steps[0].step.count)
-//
-//              self.recipeView.valuheOne = (recipe.analyzedInstructions[0].steps[0].ingredients[0].name.count) //Крч это переменые для количества ячеек
-//              self.recipeView.valueTwo = recipe.analyzedInstructions[0].steps.count //Крч это переменые для количества ячеек
-//
-//
-//              self.recipeView.resipeText = recipe.analyzedInstructions[0].steps[0].ingredients[0].name // Не получаеться почему то получить данные в массиве, постоянно ругаться типо кол-во ячеек и элементов не !=. Просто написал это, чтобы таблица заполнялась
-//
-//
-//              self.recipeView.recipe = recipe
-//              self.recipeView.tableVIew.reloadData()
-//              // Бывает падает из-за того шо нет номера или просто битая апи приходит
             }
         })
     }
@@ -79,14 +70,9 @@ class RecipeViewController: UIViewController  {
         guard let recipe = recipe else {
             return
         }
-
         self.tabBarController?.tabBar.isHidden = true
-
     }
 }
-
-
-
 
 
 extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -107,18 +93,25 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
 
       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
           guard let recipe = recipe else { return UITableViewCell()}
-          
-          
-          
-          let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+
           if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
               let ingredients = recipe.extendedIngredients[indexPath.row]
               cell.textLabel?.text = ingredients.originalName
+            print("ID IMAGE - \(ingredients.id) Ingredients name - \(ingredients.originalName)")
+            return cell
+
+
           }else{
+
+            let cell = tableView.dequeueReusableCell(withIdentifier:firstCellIDF , for: indexPath) as! IngredientsCell
               let stepsOfPreparations = recipe.analyzedInstructions[0].steps[indexPath.row]
-              cell.textLabel?.text = stepsOfPreparations.step
+            cell.ConfigCellWithContain(stepsOfPreparations)
+
+//              cell.textLabel?.text = stepsOfPreparations.step
+            return cell
           }
-          return cell
+//          return cell
       }
 
       func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -154,11 +147,9 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
 
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
 
   }
+
 
 
 
