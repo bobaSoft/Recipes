@@ -12,15 +12,23 @@ class RecipeViewController: UIViewController  {
     
     // MARK: - Private properties
     
-    private var recipe: Recipe?
+    private var recipe: Recipe? {
+        didSet {
+            guard let recipe = recipe, let url = URL(string:recipe.image) else { return }
+
+            self.recipeView.sampleLabel.text = recipe.title // done
+            self.recipeView.recipeImageView.sd_setImage(with: url) // done
+        }
+    }
     
     private lazy var recipeView = RecipeDetailUIView()
-  var test  = 0
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        recipeView.tableVIew.delegate = self
+        recipeView.tableVIew.dataSource = self
       
     }
     
@@ -44,35 +52,40 @@ class RecipeViewController: UIViewController  {
             DispatchQueue.main.async {
                 self.recipe = recipe
                 print(self.recipe)
-              var viewElemnts = RecipeDetailUIView()
-//              print("Я ЕбЛАН ААААААААААЫФФФФФФФФФ")
-              self.recipeView.sampleLabel.text = String(recipe.title) // done
-              self.recipeView.recipeImageView.sd_setImage(with: URL(string: "\(recipe.image)")) // done
-              self.test = (recipe.analyzedInstructions[0].steps[0].step.count)
-
-              self.recipeView.valuheOne = (recipe.analyzedInstructions[0].steps[0].ingredients[0].name.count) //Крч это переменые для количества ячеек
-              self.recipeView.valueTwo = recipe.analyzedInstructions[0].steps.count //Крч это переменые для количества ячеек
-
-
-              self.recipeView.resipeText = recipe.analyzedInstructions[0].steps[0].ingredients[0].name // Не получаеться почему то получить данные в массиве, постоянно ругаться типо кол-во ячеек и элементов не !=. Просто написал это, чтобы таблица заполнялась
-
-
-              self.recipeView.recipe = recipe
-              self.recipeView.tableVIew.reloadData()
-              // Бывает падает из-за того шо нет номера или просто битая апи приходит
+                self.recipeView.tableVIew.reloadData()
+//              var viewElemnts = RecipeDetailUIView()
+////              print("Я ЕбЛАН ААААААААААЫФФФФФФФФФ")
+//              self.recipeView.sampleLabel.text = String(recipe.title) // done
+//              self.recipeView.recipeImageView.sd_setImage(with: URL(string: "\(recipe.image)")) // done
+//              self.test = (recipe.analyzedInstructions[0].steps[0].step.count)
+//
+//              self.recipeView.valuheOne = (recipe.analyzedInstructions[0].steps[0].ingredients[0].name.count) //Крч это переменые для количества ячеек
+//              self.recipeView.valueTwo = recipe.analyzedInstructions[0].steps.count //Крч это переменые для количества ячеек
+//
+//
+//              self.recipeView.resipeText = recipe.analyzedInstructions[0].steps[0].ingredients[0].name // Не получаеться почему то получить данные в массиве, постоянно ругаться типо кол-во ячеек и элементов не !=. Просто написал это, чтобы таблица заполнялась
+//
+//
+//              self.recipeView.recipe = recipe
+//              self.recipeView.tableVIew.reloadData()
+//              // Бывает падает из-за того шо нет номера или просто битая апи приходит
             }
         })
     }
-    
 
-    
-    
     // MARK: - Methods for UI configuration.
     
     private func setUpView() {
+        guard let recipe = recipe else {
+            return
+        }
+
         self.tabBarController?.tabBar.isHidden = true
+
     }
 }
+
+
 
 
 
@@ -84,21 +97,26 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
       }
 
       func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+          guard let recipe = recipe else { return 0}
           if section == 0 {
-            return test
+              return recipe.extendedIngredients.count
           }else {
-              return 3
-
+              return recipe.analyzedInstructions[0].steps.count
           }
       }
 
       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+          guard let recipe = recipe else { return UITableViewCell()}
+          
+          
+          
           let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
           if indexPath.section == 0 {
-              //      cell.textLabel?.text = recipe?.analyzedInstructions[indexPath.row].steps[indexPath.row].ingredients[indexPath.row].name
-            cell.textLabel?.text = recipe?.analyzedInstructions[indexPath.row].steps[indexPath.row].step //только так пока смог
+              let ingredients = recipe.extendedIngredients[indexPath.row]
+              cell.textLabel?.text = ingredients.originalName
           }else{
-              cell.textLabel?.text = "ПШНХ ПШНХ ПШНХ"
+              let stepsOfPreparations = recipe.analyzedInstructions[0].steps[indexPath.row]
+              cell.textLabel?.text = stepsOfPreparations.step
           }
           return cell
       }
@@ -134,6 +152,10 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
       let header = view as! UITableViewHeaderFooterView
       header.textLabel?.font = UIFont.boldSystemFont(ofSize: 30)
 
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 
   }
