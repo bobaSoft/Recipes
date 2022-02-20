@@ -11,7 +11,7 @@ import SDWebImage
 class RecipeViewController: UIViewController  {
     
     // MARK: - Private properties
-    
+  let firstCellIDF = "RightChatCellIDF"
     private var recipe: Recipe? {
         didSet {
             guard let recipe = recipe, let url = URL(string:recipe.image) else { return }
@@ -28,10 +28,16 @@ class RecipeViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
-        recipeView.customTableView.delegate = self
-        recipeView.customTableView.dataSource = self
-        
+
+        recipeView.tableVIew.delegate = self
+        recipeView.tableVIew.dataSource = self
+        recipeView.tableVIew.register(IngredientsCell().classForCoder, forCellReuseIdentifier: firstCellIDF)
     }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    recipeView.tableVIew.reloadData()
+  }
     
     override func loadView() {
         self.view = recipeView
@@ -64,69 +70,83 @@ class RecipeViewController: UIViewController  {
 }
 
 
-
-
-
 extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let recipe = recipe else { return 0}
-        if section == 0 {
-            return recipe.extendedIngredients.count
-        }else {
-            return recipe.analyzedInstructions[0].steps.count
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let recipe = recipe else { return UITableViewCell()}
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        if indexPath.section == 0 {
-            let ingredients = recipe.extendedIngredients[indexPath.row]
-            cell.textLabel?.text = ingredients.originalName
-        }else{
-            let stepsOfPreparations = recipe.analyzedInstructions[0].steps[indexPath.row]
-            cell.textLabel?.text = stepsOfPreparations.step
-        }
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 50
-        }else {
-            return 100
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 20
-        } else {
-            return 20
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "ingredients"
-        }else {
-            return "steps"
-        }
-    }
-    
+
+
+
+      func numberOfSections(in tableView: UITableView) -> Int {
+          2
+      }
+
+      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+          guard let recipe = recipe else { return 0}
+          if section == 0 {
+              return recipe.extendedIngredients.count
+          }else {
+              return recipe.analyzedInstructions[0].steps.count
+          }
+      }
+
+      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+          guard let recipe = recipe else { return UITableViewCell()}
+
+          if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+              let ingredients = recipe.extendedIngredients[indexPath.row]
+              cell.textLabel?.text = ingredients.originalName
+            print("ID IMAGE - \(ingredients.id) Ingredients name - \(ingredients.originalName)")
+            return cell
+
+
+          }else{
+
+            let cell = tableView.dequeueReusableCell(withIdentifier:firstCellIDF , for: indexPath) as! IngredientsCell
+              let stepsOfPreparations = recipe.analyzedInstructions[0].steps[indexPath.row]
+            cell.ConfigCellWithContain(stepsOfPreparations)
+
+//              cell.textLabel?.text = stepsOfPreparations.step
+            return cell
+          }
+//          return cell
+      }
+
+      func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+          if section == 0 {
+              return 50
+          }else {
+              return 100
+          }
+      }
+
+      func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+          if section == 0 {
+              return 20
+          } else {
+              return 20
+          }
+      }
+
+      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+          if section == 0 {
+              return "ingredients"
+          }else {
+              return "steps"
+          }
+      }
+
+
+
+
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-        
+      let header = view as! UITableViewHeaderFooterView
+      header.textLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+
     }
     
-}
+
+  }
+
+
 
 
 
