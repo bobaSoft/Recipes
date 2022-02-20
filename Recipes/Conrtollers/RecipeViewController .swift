@@ -15,9 +15,10 @@ class RecipeViewController: UIViewController  {
     private var recipe: Recipe? {
         didSet {
             guard let recipe = recipe, let url = URL(string:recipe.image) else { return }
-
-            self.recipeView.sampleLabel.text = recipe.title // done
-            self.recipeView.recipeImageView.sd_setImage(with: url) // done
+            self.recipeView.recipeNameLabel.text = recipe.title
+            DispatchQueue.main.async {
+                self.recipeView.recipeImageView.sd_setImage(with: url)
+            }
         }
     }
     
@@ -27,21 +28,20 @@ class RecipeViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
-        recipeView.tableVIew.delegate = self
-        recipeView.tableVIew.dataSource = self
-      
+        recipeView.customTableView.delegate = self
+        recipeView.customTableView.dataSource = self
+        
     }
     
     override func loadView() {
         self.view = recipeView
-//      recipeView.sampleLabel.text = "ПЕНА ИДИКА ТЫ НАХУЙ"
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         recipeView.recipeImageView.snp.makeConstraints { make in
             make.height.equalTo(self.view.frame.height / 3)
-          make.width.equalTo(self.view.frame.width * 0.7)
+            make.width.equalTo(self.view.frame.width * 0.7)
         }
     }
     
@@ -51,37 +51,15 @@ class RecipeViewController: UIViewController  {
         NetworkRequestManager.shared?.requestRecipes(id: id, comletion: { recipe in
             DispatchQueue.main.async {
                 self.recipe = recipe
-                print(self.recipe)
-                self.recipeView.tableVIew.reloadData()
-//              var viewElemnts = RecipeDetailUIView()
-////              print("Я ЕбЛАН ААААААААААЫФФФФФФФФФ")
-//              self.recipeView.sampleLabel.text = String(recipe.title) // done
-//              self.recipeView.recipeImageView.sd_setImage(with: URL(string: "\(recipe.image)")) // done
-//              self.test = (recipe.analyzedInstructions[0].steps[0].step.count)
-//
-//              self.recipeView.valuheOne = (recipe.analyzedInstructions[0].steps[0].ingredients[0].name.count) //Крч это переменые для количества ячеек
-//              self.recipeView.valueTwo = recipe.analyzedInstructions[0].steps.count //Крч это переменые для количества ячеек
-//
-//
-//              self.recipeView.resipeText = recipe.analyzedInstructions[0].steps[0].ingredients[0].name // Не получаеться почему то получить данные в массиве, постоянно ругаться типо кол-во ячеек и элементов не !=. Просто написал это, чтобы таблица заполнялась
-//
-//
-//              self.recipeView.recipe = recipe
-//              self.recipeView.tableVIew.reloadData()
-//              // Бывает падает из-за того шо нет номера или просто битая апи приходит
+                self.recipeView.customTableView.reloadData()
             }
         })
     }
-
+    
     // MARK: - Methods for UI configuration.
     
     private func setUpView() {
-        guard let recipe = recipe else {
-            return
-        }
-
         self.tabBarController?.tabBar.isHidden = true
-
     }
 }
 
@@ -90,75 +68,65 @@ class RecipeViewController: UIViewController  {
 
 
 extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
-
-
-      func numberOfSections(in tableView: UITableView) -> Int {
-          2
-      }
-
-      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-          guard let recipe = recipe else { return 0}
-          if section == 0 {
-              return recipe.extendedIngredients.count
-          }else {
-              return recipe.analyzedInstructions[0].steps.count
-          }
-      }
-
-      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          guard let recipe = recipe else { return UITableViewCell()}
-          
-          
-          
-          let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-          if indexPath.section == 0 {
-              let ingredients = recipe.extendedIngredients[indexPath.row]
-              cell.textLabel?.text = ingredients.originalName
-          }else{
-              let stepsOfPreparations = recipe.analyzedInstructions[0].steps[indexPath.row]
-              cell.textLabel?.text = stepsOfPreparations.step
-          }
-          return cell
-      }
-
-      func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-          if section == 0 {
-              return 50
-          }else {
-              return 100
-          }
-      }
-
-      func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-          if section == 0 {
-              return 20
-          } else {
-              return 20
-          }
-      }
-
-      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-          if section == 0 {
-              return "ingredients"
-          }else {
-              return "steps"
-          }
-      }
-
-
-
-
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-      let header = view as! UITableViewHeaderFooterView
-      header.textLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let recipe = recipe else { return 0}
+        if section == 0 {
+            return recipe.extendedIngredients.count
+        }else {
+            return recipe.analyzedInstructions[0].steps.count
+        }
     }
-
-  }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let recipe = recipe else { return UITableViewCell()}
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        if indexPath.section == 0 {
+            let ingredients = recipe.extendedIngredients[indexPath.row]
+            cell.textLabel?.text = ingredients.originalName
+        }else{
+            let stepsOfPreparations = recipe.analyzedInstructions[0].steps[indexPath.row]
+            cell.textLabel?.text = stepsOfPreparations.step
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 50
+        }else {
+            return 100
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 20
+        } else {
+            return 20
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "ingredients"
+        }else {
+            return "steps"
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+        
+    }
+    
+}
 
 
 

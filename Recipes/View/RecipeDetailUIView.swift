@@ -10,17 +10,6 @@ import UIKit
 /// Все элементы ui для детального экрана
 class RecipeDetailUIView: UIView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-        tableVIew.frame = self.bounds
-        self.backgroundColor = .white
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     //MARK: -  View элементы
     
     let mainScrollView: UIScrollView = {
@@ -31,7 +20,7 @@ class RecipeDetailUIView: UIView {
         return scrollView
     }()
     
-    let sampleLabel: UILabel = {
+    lazy var recipeNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Test"
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
@@ -39,66 +28,88 @@ class RecipeDetailUIView: UIView {
       label.numberOfLines = 0
         return label
     }()
-    var recipeImageView: UIImageView = {
+    
+    lazy var recipeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.backgroundColor = .red
         imageView.layer.cornerRadius = 15
         return imageView
     }()
     
-    let view2: UIView = {
+    lazy var viewForTableView: UIView = {
         let view = UIView()
-        view.backgroundColor = .green
+        view.layer.cornerRadius = 10
         return view
     }()
     
-    let tableVIew: UITableView =  {
-        let table = UITableView.init(frame: CGRect.zero, style: .insetGrouped)
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        table.backgroundColor = .white
-        return table
+    lazy var customTableView: UITableView =  {
+        let tableView = UITableView.init(frame: CGRect.zero, style: .insetGrouped)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.backgroundColor = .systemGray6
+        return tableView
     }()
     
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+        setUpImageView()
+        setUpNameLabel()
+        setUpViewForTable()
+        setUpTableView()
+        customTableView.frame = self.bounds
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: - Настройка view элементов
     
     private func setupView(){
+        self.backgroundColor = .systemGray6
         self.mainScrollView.bounces = false
-        self.tableVIew.bounces = false
-        mainScrollView.addSubview(view2)
-        view2.addSubview(tableVIew)
-        
-        self.backgroundColor = .white
+        self.customTableView.bounces = false
         self.addSubview(self.mainScrollView)
-        self.mainScrollView.addSubview(self.sampleLabel)
-        self.mainScrollView.addSubview(self.recipeImageView)
-        
         
         self.mainScrollView.snp.makeConstraints { (make) in
             make.top.left.right.bottom.equalTo(self.safeAreaLayoutGuide)
         }
-        
-        self.recipeImageView.snp.makeConstraints { make in
-            make.top.equalTo(mainScrollView.snp.bottom).offset(5)
-            make.centerX.equalTo(self.mainScrollView)
-        }
-        
-        self.sampleLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(self.mainScrollView)
+    
+    }
+    
+    private func setUpNameLabel() {
+        mainScrollView.addSubview(recipeNameLabel)
+        recipeNameLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(mainScrollView)
             make.top.equalTo(recipeImageView.snp.bottom).offset(50)
         }
-        
-        view2.snp.makeConstraints { make in
-            make.top.equalTo(sampleLabel.snp.bottom).offset(50)
+    }
+    
+    private func setUpImageView() {
+        mainScrollView.addSubview(recipeImageView)
+        recipeImageView.snp.makeConstraints { make in
+            make.top.equalTo(mainScrollView.snp.bottom).offset(5)
+            make.centerX.equalTo(mainScrollView)
+        }
+    }
+    
+    private func setUpViewForTable() {
+        mainScrollView.addSubview(viewForTableView)
+        viewForTableView.snp.makeConstraints { make in
+            make.top.equalTo(recipeNameLabel.snp.bottom).offset(50)
             make.centerX.equalToSuperview()
             make.height.equalTo(500)
             make.width.equalToSuperview()
         }
-        
-        tableVIew.snp.makeConstraints { make in
+    }
+
+    private func setUpTableView() {
+        viewForTableView.addSubview(customTableView)
+        customTableView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
-        
     }
 }
