@@ -11,10 +11,13 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+      let searchVC      =   SearchViewController(collectionViewLayout: UICollectionViewFlowLayout())
+      let favouriteVC   =   FavouriteViewController()
         
-        let vc = ViewController()
         viewControllers = [
-            setUpNavigationController(title: "Тест", image: UIImage(systemName: "questionmark"), rootViewController: vc)
+            setUpNavigationController(title: "Search", image: UIImage(systemName: "magnifyingglass.circle.fill"), rootViewController: searchVC),
+            setUpNavigationController(title: "Favourite", image: UIImage(systemName: "heart.circle.fill"), rootViewController: favouriteVC)
         ]
     }
     

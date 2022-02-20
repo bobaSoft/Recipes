@@ -8,25 +8,41 @@
 
 /* Begin PBXBuildFile section */
 		5BADA7A440BCCA2D03C1FAC1 /* Pods_Recipes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDFE35F1AA8F745B5F3BF5A /* Pods_Recipes.framework */; };
+		D25E185527BAADBD0081E154 /* FavouriteViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = D25E185427BAADBD0081E154 /* FavouriteViewController .swift */; };
+		D25E185A27BAB2280081E154 /* RecipeCollectionViewCell  .swift in Sources */ = {isa = PBXBuildFile; fileRef = D25E185927BAB2280081E154 /* RecipeCollectionViewCell  .swift */; };
+		D25E186427BC53E40081E154 /* RecipeViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = D25E186327BC53E40081E154 /* RecipeViewController .swift */; };
+		D2B81E5F27B90EC500B9D6C0 /* NetworkRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B81E5E27B90EC500B9D6C0 /* NetworkRequestManager.swift */; };
+		D2B81E6327B92B8800B9D6C0 /* RequsetResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B81E6227B92B8800B9D6C0 /* RequsetResult.swift */; };
+		F510F76F27BEA3AE0029B253 /* RecipesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F510F76E27BEA3AE0029B253 /* RecipesResult.swift */; };
+		F510F77127BEA4010029B253 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = F510F77027BEA4010029B253 /* Recipe.swift */; };
 		F59C515327B9082E00971B5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59C515227B9082E00971B5D /* AppDelegate.swift */; };
 		F59C515527B9082E00971B5D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59C515427B9082E00971B5D /* SceneDelegate.swift */; };
-		F59C515727B9082E00971B5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59C515627B9082E00971B5D /* ViewController.swift */; };
+		F59C515727B9082E00971B5D /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59C515627B9082E00971B5D /* SearchViewController.swift */; };
 		F59C515C27B9083400971B5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F59C515B27B9083400971B5D /* Assets.xcassets */; };
 		F59C515F27B9083400971B5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F59C515D27B9083400971B5D /* LaunchScreen.storyboard */; };
 		F59C516B27B90B2F00971B5D /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59C516A27B90B2F00971B5D /* MainTabBarController.swift */; };
+		F5EA56CB27BFD3B300BA4508 /* RecipeDetailUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5EA56CA27BFD3B300BA4508 /* RecipeDetailUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3A9255A0EA682B19E5D5A85F /* Pods-Recipes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.release.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.release.xcconfig"; sourceTree = "<group>"; };
 		8BDFE35F1AA8F745B5F3BF5A /* Pods_Recipes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Recipes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D25E185427BAADBD0081E154 /* FavouriteViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavouriteViewController .swift"; sourceTree = "<group>"; };
+		D25E185927BAB2280081E154 /* RecipeCollectionViewCell  .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeCollectionViewCell  .swift"; sourceTree = "<group>"; };
+		D25E186327BC53E40081E154 /* RecipeViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeViewController .swift"; sourceTree = "<group>"; };
+		D2B81E5E27B90EC500B9D6C0 /* NetworkRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestManager.swift; sourceTree = "<group>"; };
+		D2B81E6227B92B8800B9D6C0 /* RequsetResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequsetResult.swift; sourceTree = "<group>"; };
+		F510F76E27BEA3AE0029B253 /* RecipesResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesResult.swift; sourceTree = "<group>"; };
+		F510F77027BEA4010029B253 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		F59C514F27B9082D00971B5D /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F59C515227B9082E00971B5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F59C515427B9082E00971B5D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F59C515627B9082E00971B5D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F59C515627B9082E00971B5D /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F59C515B27B9083400971B5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F59C515E27B9083400971B5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F59C516027B9083400971B5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F59C516A27B90B2F00971B5D /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		F5EA56CA27BFD3B300BA4508 /* RecipeDetailUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailUIView.swift; sourceTree = "<group>"; };
 		FC6D54829260B4BA47888C39 /* Pods-Recipes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.debug.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,6 +75,32 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D25E185827BAB1EB0081E154 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D25E185927BAB2280081E154 /* RecipeCollectionViewCell  .swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		D2B81E5D27B90E9900B9D6C0 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				D2B81E5E27B90EC500B9D6C0 /* NetworkRequestManager.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		D2B81E6127B92B6F00B9D6C0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D2B81E6227B92B8800B9D6C0 /* RequsetResult.swift */,
+				F510F76E27BEA3AE0029B253 /* RecipesResult.swift */,
+				F510F77027BEA4010029B253 /* Recipe.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		F59C514627B9082D00971B5D = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +122,8 @@
 		F59C515127B9082E00971B5D /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
+				D2B81E6127B92B6F00B9D6C0 /* Models */,
+				D2B81E5D27B90E9900B9D6C0 /* NetworkManager */,
 				F59C516827B909B300971B5D /* View */,
 				F59C516727B9099D00971B5D /* Conrtollers */,
 				F59C516627B9099300971B5D /* Supporting Files */,
@@ -101,8 +145,10 @@
 		F59C516727B9099D00971B5D /* Conrtollers */ = {
 			isa = PBXGroup;
 			children = (
-				F59C515627B9082E00971B5D /* ViewController.swift */,
 				F59C516A27B90B2F00971B5D /* MainTabBarController.swift */,
+				F59C515627B9082E00971B5D /* SearchViewController.swift */,
+				D25E186327BC53E40081E154 /* RecipeViewController .swift */,
+				D25E185427BAADBD0081E154 /* FavouriteViewController .swift */,
 			);
 			path = Conrtollers;
 			sourceTree = "<group>";
@@ -111,6 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				F59C515D27B9083400971B5D /* LaunchScreen.storyboard */,
+				D25E185827BAB1EB0081E154 /* Cells */,
+				F5EA56CA27BFD3B300BA4508 /* RecipeDetailUIView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -229,10 +277,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F59C515727B9082E00971B5D /* ViewController.swift in Sources */,
+				F59C515727B9082E00971B5D /* SearchViewController.swift in Sources */,
+				D2B81E5F27B90EC500B9D6C0 /* NetworkRequestManager.swift in Sources */,
+				D2B81E6327B92B8800B9D6C0 /* RequsetResult.swift in Sources */,
 				F59C515327B9082E00971B5D /* AppDelegate.swift in Sources */,
+				D25E185A27BAB2280081E154 /* RecipeCollectionViewCell  .swift in Sources */,
+				D25E185527BAADBD0081E154 /* FavouriteViewController .swift in Sources */,
+				D25E186427BC53E40081E154 /* RecipeViewController .swift in Sources */,
 				F59C516B27B90B2F00971B5D /* MainTabBarController.swift in Sources */,
+				F510F76F27BEA3AE0029B253 /* RecipesResult.swift in Sources */,
 				F59C515527B9082E00971B5D /* SceneDelegate.swift in Sources */,
+				F510F77127BEA4010029B253 /* Recipe.swift in Sources */,
+				F5EA56CB27BFD3B300BA4508 /* RecipeDetailUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +438,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -411,6 +468,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
