@@ -15,6 +15,7 @@ class RecipeViewController: UIViewController  {
     private var recipe: Recipe?
     
     private lazy var recipeView = RecipeDetailUIView()
+  var test  = 0
     
     
     override func viewDidLoad() {
@@ -47,6 +48,7 @@ class RecipeViewController: UIViewController  {
 //              print("Я ЕбЛАН ААААААААААЫФФФФФФФФФ")
               self.recipeView.sampleLabel.text = String(recipe.title) // done
               self.recipeView.recipeImageView.sd_setImage(with: URL(string: "\(recipe.image)")) // done
+              self.test = (recipe.analyzedInstructions[0].steps[0].step.count)
 
               self.recipeView.valuheOne = (recipe.analyzedInstructions[0].steps[0].ingredients[0].name.count) //Крч это переменые для количества ячеек
               self.recipeView.valueTwo = recipe.analyzedInstructions[0].steps.count //Крч это переменые для количества ячеек
@@ -71,3 +73,70 @@ class RecipeViewController: UIViewController  {
         self.tabBarController?.tabBar.isHidden = true
     }
 }
+
+
+
+extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
+
+
+      func numberOfSections(in tableView: UITableView) -> Int {
+          2
+      }
+
+      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+          if section == 0 {
+            return test
+          }else {
+              return 3
+
+          }
+      }
+
+      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+          let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+          if indexPath.section == 0 {
+              //      cell.textLabel?.text = recipe?.analyzedInstructions[indexPath.row].steps[indexPath.row].ingredients[indexPath.row].name
+            cell.textLabel?.text = recipe?.analyzedInstructions[indexPath.row].steps[indexPath.row].step //только так пока смог
+          }else{
+              cell.textLabel?.text = "ПШНХ ПШНХ ПШНХ"
+          }
+          return cell
+      }
+
+      func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+          if section == 0 {
+              return 50
+          }else {
+              return 100
+          }
+      }
+
+      func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+          if section == 0 {
+              return 20
+          } else {
+              return 20
+          }
+      }
+
+      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+          if section == 0 {
+              return "ingredients"
+          }else {
+              return "steps"
+          }
+      }
+
+
+
+
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+      let header = view as! UITableViewHeaderFooterView
+      header.textLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+
+    }
+
+  }
+
+
+

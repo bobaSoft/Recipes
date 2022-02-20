@@ -47,6 +47,7 @@ class RecipeDetailUIView: UIView {
         label.text = "Test"
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         label.textAlignment = .center
+      label.numberOfLines = 0
         return label
     }()
     var recipeImageView: UIImageView = {
@@ -143,7 +144,7 @@ extension RecipeDetailUIView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 25
+            return 50
         }else {
             return 100
         }
@@ -151,21 +152,27 @@ extension RecipeDetailUIView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 100
+            return 20
         } else {
-            return 50
+            return 20
         }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Я ебал ваши скролл вью"
+            return "ingredients"
         }else {
-            return "dfl;ksdfb"
+            return "steps"
         }
     }
-    
-    
-    
-    
+
+
+
+
+  func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    let header = view as! UITableViewHeaderFooterView
+    header.textLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+  
+  }
+
 }
