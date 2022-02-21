@@ -133,6 +133,11 @@ extension RecipeViewController: UITableViewDataSource{
       let cell = tableView.dequeueReusableCell(withIdentifier:firstCellIDF , for: indexPath) as! IngredientsCell
       let stepsOfPreparations = recipe.analyzedInstructions[0].steps[indexPath.row]
       cell.ConfigCellWithContain(stepsOfPreparations)
+      cell.layer.borderWidth = 1
+//      cell.layer.cornerRadius = 9
+      cell.clipsToBounds = true
+      cell.layer.borderColor = UIColor.black.cgColor
+      cell.backgroundColor = .white
       return cell
     }
   }
