@@ -25,7 +25,7 @@ class RecipeDetailUIView: UIView {
         label.text = "Test"
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         label.textAlignment = .center
-      label.numberOfLines = 0
+        label.numberOfLines = 0
         return label
     }()
     
@@ -85,6 +85,8 @@ class RecipeDetailUIView: UIView {
         recipeNameLabel.snp.makeConstraints { make in
             make.centerX.equalTo(mainScrollView)
             make.top.equalTo(recipeImageView.snp.bottom).offset(50)
+            make.trailing.equalTo(mainScrollView.contentLayoutGuide.snp.trailing).inset(10)
+            make.leading.equalTo(mainScrollView.contentLayoutGuide.snp.leading).inset(10)
         }
     }
     
