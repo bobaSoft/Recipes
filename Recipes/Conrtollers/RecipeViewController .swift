@@ -8,6 +8,8 @@
 import UIKit
 import SDWebImage
 
+
+
 class RecipeViewController: UIViewController  {
   
   // MARK: - Private properties
@@ -15,8 +17,10 @@ class RecipeViewController: UIViewController  {
   private var recipe: Recipe? {
     didSet {
       guard let recipe = recipe, let url = URL(string:recipe.image) else { return }
+      self.recipeView.fadeTransition(1.5)
       self.recipeView.recipeNameLabel.text = recipe.title
       DispatchQueue.main.async {
+        self.recipeView.indicator.stopAnimating()
         self.recipeView.recipeImageView.sd_setImage(with: url)
       }
     }
@@ -31,7 +35,7 @@ class RecipeViewController: UIViewController  {
     setUpView()
     recipeView.customTableView.delegate = self
     recipeView.customTableView.dataSource = self
-    recipeView.customTableView.register(IngredientsCell().classForCoder, forCellReuseIdentifier: firstCellIDF)
+    recipeView.customTableView.register(StepsCell().classForCoder, forCellReuseIdentifier: firstCellIDF)
   }
   
   /// viewWillAppear
@@ -125,19 +129,16 @@ extension RecipeViewController: UITableViewDataSource{
       let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
       let ingredients = recipe.extendedIngredients[indexPath.row]
       cell.textLabel?.text = ingredients.originalName
-      print("ID IMAGE - \(ingredients.id) Ingredients name - \(ingredients.originalName)")
+      cell.textLabel?.numberOfLines = 0
+      viewSettingsCell(cell: cell)
       return cell
       
     }else{
-      
-      let cell = tableView.dequeueReusableCell(withIdentifier:firstCellIDF , for: indexPath) as! IngredientsCell
+      // тут кастомная ячейка
+      let cell = tableView.dequeueReusableCell(withIdentifier:firstCellIDF , for: indexPath) as! StepsCell
       let stepsOfPreparations = recipe.analyzedInstructions[0].steps[indexPath.row]
       cell.ConfigCellWithContain(stepsOfPreparations)
-      cell.layer.borderWidth = 1
-//      cell.layer.cornerRadius = 9
-      cell.clipsToBounds = true
-      cell.layer.borderColor = UIColor.black.cgColor
-      cell.backgroundColor = .white
+      viewSettingsCell(cell: cell)
       return cell
     }
   }
@@ -150,8 +151,27 @@ extension RecipeViewController: UITableViewDataSource{
       return "steps"
     }
   }
+
+  /// настройка UI for cell
+  private func viewSettingsCell(cell: UITableViewCell){
+    cell.layer.borderWidth = 1
+    cell.clipsToBounds = true
+    cell.layer.borderColor = UIColor.black.cgColor
+    cell.backgroundColor = .white
+  }
 }
 
+/// Чтобы была анимация плавного появления для текста и картинки
+extension UIView {
+  func fadeTransition(_ duration:CFTimeInterval) {
+    let animation = CATransition()
+    animation.timingFunction = CAMediaTimingFunction(name:
+                                                      CAMediaTimingFunctionName.easeInEaseOut)
+    animation.type = CATransitionType.fade
+    animation.duration = duration
+    layer.add(animation, forKey: CATransitionType.fade.rawValue)
+  }
+}
 
 
 

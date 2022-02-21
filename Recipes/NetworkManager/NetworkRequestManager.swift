@@ -39,7 +39,7 @@ class NetworkRequestManager{
   private func generateParamsForRecipes(keyWord: String?)->[String:String]{
     var parameters = [String:String]()
     parameters["query"] = keyWord
-    parameters["apiKey"] = "c2ab68bc2ddd40cd950a6f5ad60aa263" // ключ может упасть
+    parameters["apiKey"] = "5b20ab8b632040dbbd8d3445b5b8e0c2" // ключ может упасть
     parameters["number"] = String(30)
     return parameters
   }
@@ -47,7 +47,7 @@ class NetworkRequestManager{
 
   //MARK: - Второй запрос на детальном экране рецепта
   /// - Параметры запроса  для второго экрана
-  let parameters = ["apiKey": "c2ab68bc2ddd40cd950a6f5ad60aa263"]
+  let parameters = ["apiKey": "5b20ab8b632040dbbd8d3445b5b8e0c2"]
 
   /// - Создание запроса для второго экрана
   func requestRecipes(id:Int, comletion: @escaping(_ recipe: Recipe)->Void) {

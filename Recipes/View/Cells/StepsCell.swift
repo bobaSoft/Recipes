@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 //MARK: - Кастомная ячейка для таблицы
-class IngredientsCell: UITableViewCell{
+class StepsCell: UITableViewCell{
 
   private var containLab:UILabel // label для вывода шагов 
 
