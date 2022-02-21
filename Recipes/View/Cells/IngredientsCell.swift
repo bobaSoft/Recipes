@@ -10,14 +10,13 @@ import UIKit
 
 //MARK: - Кастомная ячейка для таблицы
 class IngredientsCell: UITableViewCell{
+    
+    
+    static let reuseID = "IngredientCell"
 
   private var containLab:UILabel // label для вывода шагов 
 
-  /// awakeFromNib
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-  }
+
 
   /// init
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -34,6 +33,7 @@ class IngredientsCell: UITableViewCell{
 
   /// Присвоение констрэинтов и добавление на экран
   fileprivate func initUI(){
+      
     self.selectionStyle = UITableViewCell.SelectionStyle.none
     self.contentView.backgroundColor = UIColor.clear
 
@@ -60,4 +60,6 @@ class IngredientsCell: UITableViewCell{
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+    
+    
 }

@@ -16,7 +16,7 @@ class RecipeDetailUIView: UIView {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 120, width: screenWidth, height: screenHeight))
-        scrollView.contentSize = CGSize(width: screenWidth, height: 2000)
+        scrollView.contentSize = CGSize(width: screenWidth, height: 1500)
         return scrollView
     }()
     
@@ -83,10 +83,10 @@ class RecipeDetailUIView: UIView {
     private func setUpNameLabel() {
         mainScrollView.addSubview(recipeNameLabel)
         recipeNameLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(mainScrollView)
             make.top.equalTo(recipeImageView.snp.bottom).offset(50)
             make.trailing.equalTo(mainScrollView.contentLayoutGuide.snp.trailing).inset(10)
             make.leading.equalTo(mainScrollView.contentLayoutGuide.snp.leading).inset(10)
+            make.height.equalTo(40)
         }
     }
     
