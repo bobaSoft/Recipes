@@ -11,6 +11,10 @@ import SDWebImage
 
 
 class RecipeViewController: UIViewController  {
+
+  /// BarButtonItem
+  var editActionBar: UIBarButtonItem?
+  var cancelActionBar: UIBarButtonItem?
   
   // MARK: - Private properties
   private let firstCellIDF = "RightChatCellIDF"
@@ -28,7 +32,7 @@ class RecipeViewController: UIViewController  {
   
   /// recipeView -> RecipeDetailUIView
   private lazy var recipeView = RecipeDetailUIView()
-  
+
   /// viewDidLoad
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -36,7 +40,16 @@ class RecipeViewController: UIViewController  {
     recipeView.customTableView.delegate = self
     recipeView.customTableView.dataSource = self
     recipeView.customTableView.register(StepsCell().classForCoder, forCellReuseIdentifier: firstCellIDF)
+
+    /// Like button on barButton
+    self.editActionBar = UIBarButtonItem(image: UIImage(systemName: "heart.slash.fill"), style: .plain, target: self, action: #selector(editBtnAction))
+    self.cancelActionBar = UIBarButtonItem(image: UIImage(systemName: "suit.heart.fill"), style: .plain, target: self, action: #selector(cancelBtnAction))
+    self.navigationItem.setRightBarButton(editActionBar, animated: true)
+
+
   }
+
+
   
   /// viewWillAppear
   override func viewWillAppear(_ animated: Bool) {
@@ -158,6 +171,14 @@ extension RecipeViewController: UITableViewDataSource{
     cell.clipsToBounds = true
     cell.layer.borderColor = UIColor.black.cgColor
     cell.backgroundColor = .white
+  }
+
+  /// Нажатие на "Like"
+  @objc func editBtnAction(_ sender: UIBarButtonItem) {
+    self.navigationItem.setRightBarButton(cancelActionBar, animated: true)
+  }
+  @objc func cancelBtnAction(_ sender: UIBarButtonItem) {
+    self.navigationItem.setRightBarButton(editActionBar, animated: true)
   }
 }
 
