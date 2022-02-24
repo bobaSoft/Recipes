@@ -13,8 +13,8 @@ import SDWebImage
 class RecipeViewController: UIViewController  {
 
   /// BarButtonItem
-  var editActionBar: UIBarButtonItem?
-  var cancelActionBar: UIBarButtonItem?
+  private var editActionBar: UIBarButtonItem?
+  private var cancelActionBar: UIBarButtonItem?
   
   // MARK: - Private properties
   private let firstCellIDF = "RightChatCellIDF"
