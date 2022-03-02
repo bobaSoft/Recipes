@@ -19,6 +19,8 @@ class MainTabBarController: UITabBarController {
       setUpNavigationController(title: "Search", image: UIImage(systemName: "magnifyingglass.circle.fill"), rootViewController: searchVC),
       setUpNavigationController(title: "Favourite", image: UIImage(systemName: "heart.circle.fill"), rootViewController: favouriteVC)
     ]
+
+    favouriteVC.tabBarController?.tabBar.items![1].badgeValue = String(favouriteVC.itemstringArr.count) // пока пусть будет тут(это бэйдж для tabbar.item)
   }
 
   private func setUpNavigationController(title: String, image: UIImage?, rootViewController: UIViewController) -> UIViewController {

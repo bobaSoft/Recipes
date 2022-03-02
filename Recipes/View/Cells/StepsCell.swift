@@ -9,10 +9,14 @@ import Foundation
 import UIKit
 
 //MARK: - Кастомная ячейка для таблицы
+<<<<<<< HEAD:Recipes/View/Cells/IngredientsCell.swift
 class IngredientsCell: UITableViewCell{
     
     
     static let reuseID = "IngredientCell"
+=======
+class StepsCell: UITableViewCell{
+>>>>>>> Kirill-2:Recipes/View/Cells/StepsCell.swift
 
   private var containLab:UILabel // label для вывода шагов 
 
